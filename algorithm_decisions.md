@@ -79,11 +79,11 @@
 - **Decision**：
   1. 殘差目標由 OOF RSM 預測建立（折內重做模型選擇），殘差模型以 OOF 殘差訓練，並在獨立驗證資料評估。
   2. **OOF 產生方式**：第一版使用 Repeated 5-fold CV；LOO 作為小樣本情境的比較方法。
-  3. **Shrinkage**：不預設固定。修正式為 $Y_{\text{corrected}} = Y_{\text{RSM}} + \lambda\,\hat{e}_{ML}$，$0 \le \lambda \le 1$。Benchmark 比較無 shrinkage（$\lambda = 1$）與有 shrinkage（$\lambda$ 以 OOF 選擇）的差異。
+  3. **Shrinkage**：不預設固定。修正式為 $Y_{\text{corrected}} = Y_{\text{RSM}} + \lambda\,\hat{e}_{ML}$，$0 \le \lambda \le 1$。Benchmark 比較無 shrinkage($\lambda = 1$)與有 shrinkage（$\lambda$ 以 OOF 選擇）的差異。
 - **Alternatives**：in-sample 殘差（洩漏）；單次 hold-out 切分（小樣本浪費資料）；固定使用 shrinkage。
 - **Rationale**：避免洩漏，估計真實泛化表現；Repeated K-fold 能觀察結果穩定性，且計算成本低於 LOO。
 - **Consequences**：OOF 殘差略大於全資料 RSM 殘差（分布偏差）；小樣本下 CV 方差大，須文件化；以 OOF 選 $\lambda$ 時須避免用同一份資料再評估（需巢狀或獨立驗證）。
-- **Open questions**：重複次數預設值；$\lambda$ 選擇是否需要巢狀 CV。
+- **Open questions**：重複次數預設值； $\lambda$ 選擇是否需要巢狀 CV。
 
 ## ADR-007：Python 套件命名
 
@@ -117,7 +117,7 @@
 
 - **Context**：停止條件依賴 $R^2$；不同定義（訓練、CV、hold-out）與邊界情況會改變結論。
 - **Decision**：
-  1. **指標**：預測 $R^2 = 1 - \mathrm{SSE}/\mathrm{SST}$，以 held-out / OOF 預測值**池化**後計算（pooled OOF）；負值保留；$\mathrm{SST} = 0$ 或樣本數不足以進行 CV 時，回報原因並視為未達標；訓練 $R^2$ 僅作報告。
+  1. **指標**：預測 $R^2 = 1 - \mathrm{SSE}/\mathrm{SST}$，以 held-out / OOF 預測值**池化**後計算（pooled OOF）；負值保留； $\mathrm{SST} = 0$ 或樣本數不足以進行 CV 時，回報原因並視為未達標；訓練 $R^2$ 僅作報告。
   2. **門檻**： $R^2_{\text{threshold}} = 0.95$（可由使用者調整）。
   3. **最小 run 數**： $N_{\min} = k(k-1)/2$， $k$ 為因子數。未達 $N_{\min}$ 前不允許停止。
   4. **最大 run 數**  $N_{\max}$：由使用者設定，無預設值。
