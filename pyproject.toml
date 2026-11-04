@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# NOTE: PyPI 上的 "adore" 已被其他專案佔用，發佈名稱暫定 "adore-doe"（尚未註冊）。
+# import 名稱仍為 `adore`。詳見 docs/algorithm_decisions.md ADR-007。
+name = "adore-doe"
+dynamic = ["version"]
+description = "ADoRE: Adaptive Design of Experiments with Residual Enhancement (RSM + Active Learning + ML residual correction)"
+readme = "README.md"
+requires-python = ">=3.10"
+# authors / license 欄位刻意留白，由專案擁有者自行填寫。
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+]
+
+[project.optional-dependencies]
+# 只列出已確定需要的依賴；GA / 敏感度分析相關套件待 Phase 7 再決定。
+ml = ["scikit-learn>=1.3"]      # GPR（Module 1）、residual models（Module 2）
+stats = ["statsmodels>=0.14"]   # RSM 建模 / ANOVA（待確認是否自行實作）
+dev = ["pytest>=7.4", "ruff>=0.4"]
+
+[tool.setuptools.dynamic]
+version = {attr = "adore.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
