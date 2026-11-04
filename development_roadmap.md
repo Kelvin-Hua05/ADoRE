@@ -34,7 +34,7 @@
 
 ### Phase 1 — Core 與 Screening
 
-- 內容：Factor / Response / ExperimentDataset / Experiment；natural ↔ coded 轉換；PB、Fractional Factorial、DSD；主效應 / Pareto / half-normal。
+- 內容：Factor / Response / ExperimentDataset / Experiment；natural ↔ coded 轉換；PB、Fractional Factorial；主效應 / Pareto / half-normal。
 - 測試：編碼往返無誤差；資料集各響應共用同一 X；輸入驗證（範圍、重複名稱）；PB / FF 的正交性與已知設計矩陣對照。
 - 驗收：核心介面定案並寫入 `architecture.md`；Screening 結果對照教科書範例。
 
