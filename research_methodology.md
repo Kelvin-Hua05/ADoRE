@@ -9,7 +9,7 @@
 
 ## 2. 已確認的研究架構
 
-1. 初始設計為 RSM-based（CCD、BBD、I-optimal 等）；Screening 為選用前置。
+1. 初始設計為 RSM-based（CCD、I-optimal 等）；Screening 為選用前置。
 2. **Module 1**：以 GPR 為初始代理模型的 Active Learning，目標為全域預測改善；可獨立執行。
 3. 多響應：共用實驗點、各響應獨立建模與評估。
 4. Active Learning 結束後建立**最終 RSM**（保留方程式與統計可解釋性）。
@@ -193,7 +193,7 @@ $e_i=y_i-\hat y_{\mathrm{RSM},i}$，$\ \hat y_{\mathrm{final}}(x)=\hat y_{\mathr
 
 | 選項 | 說明 | 利弊 |
 |---|---|---|
-| (a) 一次性設計 | 對每個預算 $N$ 直接產生 $N$-run 的 CCD / BBD / I-optimal 設計 | 最貼近傳統 DOE；但不同 $N$ 的設計不巢狀，且不含共同的初始 $n_0$ 點 |
+| (a) 一次性設計 | 對每個預算 $N$ 直接產生 $N$-run 的 CCD / I-optimal 設計 | 最貼近傳統 DOE；但不同 $N$ 的設計不巢狀，且不含共同的初始 $n_0$ 點 |
 | (b) 初始設計 + 一次性 I-optimal 擴充 | 以同一 $n_0$ 起點擴充至 $N$（非回應導向） | 與 B/D 共享初始點，更能隔離「adaptive」的效果 |
 
 建議：以 (a) 為主、(b) 為 ablation 一併報告，Phase 6 前定案。
