@@ -118,16 +118,16 @@
 - **Context**：停止條件依賴 $R^2$；不同定義（訓練、CV、hold-out）與邊界情況會改變結論。
 - **Decision**：
   1. **指標**：預測 $R^2 = 1 - \mathrm{SSE}/\mathrm{SST}$，以 held-out / OOF 預測值**池化**後計算（pooled OOF）；負值保留；$\mathrm{SST} = 0$ 或樣本數不足以進行 CV 時，回報原因並視為未達標；訓練 $R^2$ 僅作報告。
-  2. **門檻**：$R^2_{\text{threshold}} = 0.95$（可由使用者調整）。
-  3. **最小 run 數**：$N_{\min} = k(k-1)/2$，$k$ 為因子數。未達 $N_{\min}$ 前不允許停止。
-  4. **最大 run 數** $N_{\max}$：由使用者設定，無預設值。
+  2. **門檻**： $R^2_{\text{threshold}} = 0.95$（可由使用者調整）。
+  3. **最小 run 數**： $N_{\min} = k(k-1)/2$， $k$ 為因子數。未達 $N_{\min}$ 前不允許停止。
+  4. **最大 run 數**  $N_{\max}$：由使用者設定，無預設值。
   5. **連續達標**：需連續 2 輪預測 $R^2 \ge 0.95$ 才停止。
   6. **多響應**：所有響應都達標才算達標。
   7. **停止規則**：總 run 數 $\ge N_{\min}$ 且連續 2 輪全部響應達標 → 停止；或總 run 數達 $N_{\max}$ → 停止並標記「未達標」；否則繼續選下一點。
 - **Alternatives**：Adjusted $R^2$、PRESS-based predicted $R^2$（以 LOO 為特例）；各折平均；單輪達標即停；以平均 $R^2$ 判斷多響應。
 - **Rationale**：反映泛化而非擬合；連續達標降低被單輪雜訊誤導的機會；全部響應達標避免某一響應表現差而被平均掉。
-- **Consequences**：序貫選點下的 CV 估計可能有偏；$N_{\min} = k(k-1)/2$ 在因子數少時很小（$k=3$ 為 3、$k=4$ 為 6、$k=5$ 為 10），低於二次模型的參數個數 $(k+1)(k+2)/2$，也可能低於初始設計 run 數，此時實際上不會限制停止時機。
-- **Open questions**：$N_{\min}$ 是否指「含初始設計的總 run 數」（目前採此解讀），或指初始設計之後新增的 run 數；若採後者，對小 $k$ 才有實質限制效果。
+- **Consequences**：序貫選點下的 CV 估計可能有偏； $N_{\min} = k(k-1)/2$ 在因子數少時很小（ $k=3$ 為 3、 $k=4$ 為 6、 $k=5$ 為 10），低於二次模型的參數個數 $(k+1)(k+2)/2$，也可能低於初始設計 run 數，此時實際上不會限制停止時機。
+- **Open questions**： $N_{\min}$ 是否指「含初始設計的總 run 數」（目前採此解讀），或指初始設計之後新增的 run 數；若採後者，對小 $k$ 才有實質限制效果。
 
 ## ADR-010：CCD、I-optimal、D-optimal 在設計比較中的定位
 
@@ -135,12 +135,12 @@
 
 - **Context**：移除 BBD 後，需明確定義各設計方法在 benchmark 中的角色，才能公平比較。
 - **Decision**：
-  1. **CCD**：傳統 RSM benchmark。採 full factorial CCD，軸點 $\alpha = \pm 1$（face-centered，軸點落在各面中心），**中心點 1 個**。Run 數為 $2^k + 2k + 1$（$k=3$：15；$k=4$：25；$k=5$：43）。
+  1. **CCD**：傳統 RSM benchmark。採 full factorial CCD，軸點 $\alpha = \pm 1$（face-centered，軸點落在各面中心），**中心點 1 個**。Run 數為 $2^k + 2k + 1$（ $k=3$：15； $k=4$：25； $k=5$：43）。
   2. **I-optimal**：主要的 optimal design。
   3. **D-optimal**：比較係數估計表現的 benchmark。
-- **Alternatives**：Fractional factorial CCD；$\alpha > 1$（旋轉性 CCD，軸點會超出立方體範圍）。
-- **Rationale**：$\alpha = \pm 1$ 使所有點都在因子上下限內，與 bound constraints 一致。
-- **Consequences**：中心點只有 1 個，**無重複點可估計純誤差**，因此無法用中心點重複進行 lack-of-fit 檢定；若需要 LOF 須另行設計重複點。Full factorial 的 run 數隨 $k$ 快速增加，$k \ge 5$ 時可能超過 Module 1 的 10–30 run 預算，benchmark 須在相同 run 數預算下說明比較方式。
+- **Alternatives**：Fractional factorial CCD； $\alpha > 1$（旋轉性 CCD，軸點會超出立方體範圍）。
+- **Rationale**： $\alpha = \pm 1$ 使所有點都在因子上下限內，與 bound constraints 一致。
+- **Consequences**：中心點只有 1 個，**無重複點可估計純誤差**，因此無法用中心點重複進行 lack-of-fit 檢定；若需要 LOF 須另行設計重複點。Full factorial 的 run 數隨 $k$ 快速增加， $k \ge 5$ 時可能超過 Module 1 的 10–30 run 預算，benchmark 須在相同 run 數預算下說明比較方式。
 - **Open questions**：LOF 檢定的純誤差來源（見 Consequences）；各方法的 run 數預算如何對齊。
 
 ## ADR-011：殘差修正的候選模型
