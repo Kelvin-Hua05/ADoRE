@@ -114,7 +114,7 @@ $$
 
 | 聚合 | 公式 | 特性 |
 |---|---|---|
-| 加權平均 | $A(x)=\sum_m w_m\tilde\sigma_m^2(x),\ \sum w_m=1$ | 預設，$w_m$ 須明示（預設等權） |
+| 加權平均 | $A(x)=\sum_m w_m\tilde\sigma_m^2(x),\ \sum w_m=1$ | 預設， $w_m$ 須明示（預設等權） |
 | 最差響應 | $A(x)=\max_m \tilde\sigma_m^2(x)$ | 偏保守 |
 | 積分變異降低 | 對聚合量在評估集上積分 | 與 IVR 搭配 |
 
@@ -154,12 +154,12 @@ $e_i=y_i-\hat y_{\mathrm{RSM},i}$， $\ \hat y_{\mathrm{final}}(x)=\hat y_{\math
 ### 8.1 OOF 流程（避免洩漏）
 
 1. 將資料分成 $K$ 折（小樣本用 LOO 或重複 K-fold）。
-2. 對每折：只用其餘折擬合 RSM，**包含模型選擇**（stepwise / AICc 也要在折內重做，否則選擇步驟洩漏），
+2. 對每折：只用其餘折擬合 RSM， **包含模型選擇**（stepwise / AICc 也要在折內重做，否則選擇步驟洩漏），
    再預測該折 → 得到 OOF 預測 $\hat y^{(-i)}$。
 3. 殘差目標 $e_i=y_i-\hat y^{(-i)}_{\mathrm{RSM},i}$。
 4. 以 $(x_i,e_i)$ 擬合殘差模型。
 5. 最終 RSM 用全部資料擬合；hybrid 預測 = 全資料 RSM + 殘差模型。
-6. 在**獨立驗證資料**上評估 hybrid，並與純 RSM 比較（$\Delta$RMSE、$\Delta$R²）。
+6. 在**獨立驗證資料**上評估 hybrid，並與純 RSM 比較（ $\Delta$RMSE、$\Delta$R²）。
 
 ### 8.2 注意事項
 
@@ -185,7 +185,7 @@ $e_i=y_i-\hat y_{\mathrm{RSM},i}$， $\ \hat y_{\mathrm{final}}(x)=\hat y_{\math
 ### 9.2 比較方式
 
 - **固定預算**：例如 15 / 20 / 25 / 30 runs，報告 RMSE、MAE、R²。
-- **目標準確度**：達標所需 run 數。未達標者以**右設限（censored）**處理：回報「在 $k/N$ 個 seed 中未達標」，
+- **目標準確度**：達標所需 run 數。未達標者以 **右設限（censored** 處理：回報「在 $k/N$ 個 seed 中未達標」，
   不得把預算值當成達標 run 數直接平均而不加標註。
 
 ### 9.3 開放問題：Traditional DOE 的 baseline 定義
