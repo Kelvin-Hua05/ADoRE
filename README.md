@@ -26,7 +26,7 @@
 
 ADoRE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Python 工具包，目標是用**最少的昂貴實驗**達到預先設定的預測準確度，同時保留傳統 RSM 的可解釋性（明確方程式、ANOVA、Lack-of-Fit）：
 
-1. **Screening**：Plackett-Burman / DSD 篩選關鍵因子（選用）
+1. **Screening**：Plackett-Burman 篩選關鍵因子
 2. **RSM Design**：CCD、Box-Behnken、I-optimal（含 D-optimal 對照）、Augmentation
 3. **Active Learning（Module 1）**：以 GPR 代理模型序貫建議下一個實驗點，目標是全域預測改善
 4. **RSM 建模與診斷**：二階多項式、Stepwise、AICc / BIC、ANOVA、Lack-of-Fit、殘差診斷、轉換 / WLS
@@ -45,7 +45,7 @@ ADoRE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Python 
 |------|------|:----:|
 | 套件骨架 | `import adore`、`adore.__version__` | ✅ |
 | Core | 因子 / 響應 / 資料集結構、顯式 seed 管理 | 📋 |
-| Screening | Plackett-Burman、Fractional Factorial、DSD、主效應 / Pareto / Half-normal | 📋 |
+| Screening | Plackett-Burman、Fractional Factorial、主效應 / Pareto / Half-normal | 📋 |
 | RSM 設計 | CCD、Box-Behnken、I-optimal（主要）、D-optimal（對照）、Augmentation、FDS plot | 📋 |
 | **Active Learning** | GPR 代理、Max Predictive Variance、IVR、I-optimal Augmentation、批次建議、多響應停止條件 | 📋 |
 | RSM 建模 | 一階 / 二階模型、Stepwise、AICc / BIC、Hierarchy 約束、ANOVA、Lack-of-Fit | 📋 |
@@ -63,7 +63,7 @@ ADoRE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Python 
 ## 🔄 整體流程
 
 ```
-[選用] Screening（PB / DSD）
+[選用] Screening（PB）
         │
         ▼
 RSM Design（CCD / I-optimal / …）──► 初始實驗資料
@@ -241,7 +241,7 @@ ADoRE/
 ```
 src/adore/
 ├── core/              # Factor / Response / Dataset、seed 管理
-├── screening/         # PB、DSD、主效應分析
+├── screening/         # PB、主效應分析
 ├── design/            # CCD、I-/D-optimal、augmentation
 ├── active_learning/   # GPR 代理、acquisition、停止條件
 ├── rsm/               # 多項式模型、Stepwise、ANOVA、LOF、轉換、WLS
@@ -268,10 +268,10 @@ src/adore/
 > 順序對應 [`docs/development_roadmap.md`](docs/development_roadmap.md)；各階段的測試與驗收標準以該文件為準。完成一項就把 `[ ]` 改為 `[x]`。
 
 - [x] **v0.0** 套件骨架（`import adore`、`adore.__version__`、smoke test）
-- [ ] **v0.1** Core 資料結構 + Screening（Plackett-Burman / DSD）+ 主效應分析
+- [ ] **v0.1** Core 資料結構 + Screening（Plackett-Burman）+ 主效應分析
   - [ ] Factor / Response / Dataset
   - [ ] 顯式 seed 管理
-  - [ ] Plackett-Burman、DSD
+  - [ ] Plackett-Burman
   - [ ] 主效應 / Pareto / Half-normal
 - [ ] **v0.2** RSM Design + I-optimal 整合
   - [ ] CCD、Box-Behnken
