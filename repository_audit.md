@@ -32,7 +32,7 @@
 
 | 舊 README 結構 | 新位置 | 說明 |
 |---|---|---|
-| `design/`（PB、DSD、BBD、CCD、D-optimal、augmentation） | `screening/`（PB、FF、DSD）＋ `design/`（CCD、BBD、I-/D-optimal、augmentation） | Screening 拆出為選用前置 |
+| `design/`（PB、CCD、D-optimal、augmentation） | `screening/`（PB、FF）＋ `design/`（CCD、I-/D-optimal、augmentation） | Screening 拆出為選用前置 |
 | `analysis/` | `screening/analysis.py`、`rsm/anova.py` | 依用途分到兩處 |
 | `rsm/` | `rsm/` | 保留 |
 | `diagnostics/` | `rsm/diagnostics.py` | 診斷屬於 RSM 建模 |
