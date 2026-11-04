@@ -4,8 +4,7 @@
 
 ## 1. 研究動機
 
-見 README §2。核心問題：在實驗成本高昂（例如半導體 layout / 製程的 field-solver 或晶圓實驗）時，
-如何以最少 run 數達成預定預測準確度，同時保留 RSM 的可解釋性。
+見 README §2。核心問題：在實驗成本高昂時，如何以最少 run 數達成預定預測準確度，同時保留 RSM 的可解釋性。
 
 ## 2. 已確認的研究架構
 
@@ -20,8 +19,8 @@
 ## 3. 記號
 
 - 因子 $x\in\Omega\subset\mathbb{R}^k$（以 coded 單位表示，預設 $[-1,1]^k$ 或其約束子區域）。
-- 響應 $m=1,\dots,M$，觀測 $y_{i}^{(m)}$，$i=1,\dots,n$，所有響應共用同一組 $x_i$。
-- 多項式模型 $y = f(x)^\top\beta+\varepsilon$，$f(x)$ 為模型展開（常數、線性、交互作用、平方項）。
+- 響應 $m=1,\dots,M$，觀測 $y_{i}^{(m)}$， $i=1,\dots,n$，所有響應共用同一組 $x_i$。
+- 多項式模型 $y = f(x)^\top\beta+\varepsilon$， $f(x)$ 為模型展開（常數、線性、交互作用、平方項）。
 - 設計矩陣 $X\in\mathbb{R}^{n\times p}$，第 $i$ 列為 $f(x_i)^\top$。
 
 ## 4. I-optimality 規格
@@ -46,7 +45,7 @@ $B=\int_\Omega f(x)f(x)^\top w(x)\,dx \big/ \int_\Omega w(x)\,dx$。
 | 設計區域 | 超立方體或帶線性 / 非線性約束的子區域 |
 | 權重 $w(x)$ | 預設均勻；其他權重須明示 |
 | 候選集 | 候選點的產生方式（網格、Sobol、LHS）與大小，須可由 seed 重現 |
-| 數值近似 | $B\approx \frac1m\sum_j f(u_j)f(u_j)^\top$，$u_j$ 為區域內的積分點；須記錄 $m$ 與近似誤差檢查 |
+| 數值近似 | $B\approx \frac1m\sum_j f(u_j)f(u_j)^\top$， $u_j$ 為區域內的積分點；須記錄 $m$ 與近似誤差檢查 |
 | 秩與奇異性 | 檢查 $\mathrm{rank}(X)=p$ 與條件數；不可逆時回報而非靜默使用偽逆 |
 | 約束區域 | 候選點與積分點都必須落在可行域內；可行域過小時回報 |
 | 用途 | 同時用於 RSM Design、Design Augmentation、Sequential Design |
@@ -58,7 +57,7 @@ D-optimality（最大化 $\det(X^\top X)$）保留作比較。
 | | 經典 I-optimality | GPR 後驗變異 |
 |---|---|---|
 | 模型 | 指定的線性（多項式）模型 | 由 kernel 與超參數決定的非參數先驗 |
-| 變異公式 | $\sigma^2 f^\top(X^\top X)^{-1}f$ | $k(x,x)-k_*^\top(K+\sigma_n^2I)^{-1}k_*$ |
+| 變異公式 | $\sigma^2 f^\top(X^\top X)^{-1}f$ |  $k(x, x) - k_{\ast}^\top (K + \sigma_n^2 I)^{-1} k_{\ast}$ |
 | 與 $y$ 的關係 | 僅依賴設計點 | 超參數固定時僅依賴設計點；若每輪重新估計超參數，則間接依賴觀測值 |
 | 含意 | 多項式模型下的平均預測變異 | 代理模型的不確定度，受 kernel 假設影響 |
 
@@ -126,7 +125,7 @@ $$
 停止須**同時**滿足：
 
 1. 每個響應的預測 $R^2_m \ge \tau_m$（可各自設定），**且**
-2. 聚合 $R^2$（平均或加權平均）$\ge \tau_{\text{agg}}$。
+2. 聚合 $R^2$（平均或加權平均） $\ge \tau_{\text{agg}}$。
 
 範例：三個響應各 $\ge 0.90$，且平均 $\ge 0.95$。
 
@@ -150,7 +149,7 @@ $$
 
 ## 8. Module 2：殘差修正
 
-$e_i=y_i-\hat y_{\mathrm{RSM},i}$，$\ \hat y_{\mathrm{final}}(x)=\hat y_{\mathrm{RSM}}(x)+\hat e_{\mathrm{ML}}(x)$（每個響應各自一個）。
+$e_i=y_i-\hat y_{\mathrm{RSM},i}$， $\ \hat y_{\mathrm{final}}(x)=\hat y_{\mathrm{RSM}}(x)+\hat e_{\mathrm{ML}}(x)$（每個響應各自一個）。
 
 ### 8.1 OOF 流程（避免洩漏）
 
