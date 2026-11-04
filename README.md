@@ -66,7 +66,7 @@ ADoRE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Python 
 [選用] Screening（PB / DSD）
         │
         ▼
-RSM Design（CCD / BBD / I-optimal / …）──► 初始實驗資料
+RSM Design（CCD / I-optimal / …）──► 初始實驗資料
         │
         ▼
 Module 1：Active Learning（GPR 代理模型，可獨立執行）
@@ -242,7 +242,7 @@ ADoRE/
 src/adore/
 ├── core/              # Factor / Response / Dataset、seed 管理
 ├── screening/         # PB、DSD、主效應分析
-├── design/            # CCD、BBD、I-/D-optimal、augmentation
+├── design/            # CCD、I-/D-optimal、augmentation
 ├── active_learning/   # GPR 代理、acquisition、停止條件
 ├── rsm/               # 多項式模型、Stepwise、ANOVA、LOF、轉換、WLS
 ├── diagnostics/       # 殘差圖、Leverage、Cook's D、Box-Cox
