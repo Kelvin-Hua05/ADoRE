@@ -40,8 +40,8 @@
 
 ### Phase 2 — RSM Design 與 I-optimal
 
-- 內容：CCD、BBD；I-optimal（主要）、D-optimal（比較）；augmentation；候選集與約束區域；秩 / 條件數檢查。
-- 測試：CCD / BBD 的點數與結構對照公式；I-/D-criterion 對已知小例子的手算值；不可逆設計明確報錯；同 seed 可重現；約束區域內的點全部可行。
+- 內容：CCD；I-optimal（主要）、D-optimal（比較）；augmentation；候選集與約束區域；秩 / 條件數檢查。
+- 測試：CCD 的點數與結構對照公式；I-/D-criterion 對已知小例子的手算值；不可逆設計明確報錯；同 seed 可重現；約束區域內的點全部可行。
 - 驗收：I-criterion 近似誤差檢查通過；文件明載 §4.2 所列全部規格；**未**把 GPR 變異稱為 I-optimality。
 
 ### Phase 3 — Module 1：Active Learning（最高優先）
