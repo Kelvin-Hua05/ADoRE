@@ -79,7 +79,7 @@
 - **Decision**：
   1. 殘差目標由 OOF RSM 預測建立（折內重做模型選擇），殘差模型以 OOF 殘差訓練，並在獨立驗證資料評估。
   2. **OOF 產生方式**：第一版使用 Repeated 5-fold CV；LOO 作為小樣本情境的比較方法。
-  3. **Shrinkage**：不預設固定。修正式為 $Y_{\text{corrected}} = Y_{\text{RSM}} + \lambda\,\hat{e}_{ML}$，$0 \le \lambda \le 1$。Benchmark 比較無 shrinkage($\lambda = 1$)與有 shrinkage($\lambda$ 以 OOF 選擇)的差異。
+  3. **Shrinkage**：不預設固定。修正式為 $Y_{\text{corrected}} = Y_{\text{RSM}} + \lambda\,\hat{e}_{ML}$， $0 \le \lambda \le 1$。Benchmark 比較無 shrinkage($\lambda = 1$)與有 shrinkage($\lambda$ 以 OOF 選擇)的差異。
 - **Alternatives**：in-sample 殘差（洩漏）；單次 hold-out 切分（小樣本浪費資料）；固定使用 shrinkage。
 - **Rationale**：避免洩漏，估計真實泛化表現；Repeated K-fold 能觀察結果穩定性，且計算成本低於 LOO。
 - **Consequences**：OOF 殘差略大於全資料 RSM 殘差（分布偏差）；小樣本下 CV 方差大，須文件化；以 OOF 選 $\lambda$ 時須避免用同一份資料再評估（需巢狀或獨立驗證）。
