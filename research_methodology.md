@@ -159,7 +159,7 @@ $e_i=y_i-\hat y_{\mathrm{RSM},i}$， $\ \hat y_{\mathrm{final}}(x)=\hat y_{\math
 3. 殘差目標 $e_i=y_i-\hat y^{(-i)}_{\mathrm{RSM},i}$。
 4. 以 $(x_i,e_i)$ 擬合殘差模型。
 5. 最終 RSM 用全部資料擬合；hybrid 預測 = 全資料 RSM + 殘差模型。
-6. 在**獨立驗證資料**上評估 hybrid，並與純 RSM 比較($\Delta\text{RMSE}$、$\Delta R^2$)。
+6. 在**獨立驗證資料**上評估 hybrid，並與純 RSM 比較($\Delta\text{RMSE}$、 $\Delta R^2$)。
 
 ### 8.2 注意事項
 
