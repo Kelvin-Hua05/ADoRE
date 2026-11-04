@@ -27,7 +27,7 @@
 ADoRE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Python 工具包，目標是用**最少的昂貴實驗**達到預先設定的預測準確度，同時保留傳統 RSM 的可解釋性（明確方程式、ANOVA、Lack-of-Fit）：
 
 1. **Screening**：Plackett-Burman 篩選關鍵因子
-2. **RSM Design**：CCD、Box-Behnken、I-optimal（含 D-optimal 對照）、Augmentation
+2. **RSM Design**：CCD、I-optimal（含 D-optimal 對照）、Augmentation
 3. **Active Learning（Module 1）**：以 GPR 代理模型序貫建議下一個實驗點，目標是全域預測改善
 4. **RSM 建模與診斷**：二階多項式、Stepwise、AICc / BIC、ANOVA、Lack-of-Fit、殘差診斷、轉換 / WLS
 5. **ML 殘差修正（Module 2）**：`ŷ_final = ŷ_RSM + ê_ML`，以 out-of-fold 殘差避免洩漏
@@ -176,7 +176,7 @@ pipe.report("report.html")
 
 ### RSM Design 與 I-optimal 整合
 
-- 初始設計必須是 RSM-based：CCD、Box-Behnken、I-optimal，必要時其他 optimal design。
+- 初始設計必須是 RSM-based：CCD、I-optimal，必要時其他 optimal design。
 - Screening 為選用前置階段；已知關鍵因子時可直接進入 RSM Design。
 - **I-optimal 不是獨立開發階段**，而是整合在 RSM Design、Design Augmentation 與 Sequential Design 中；I-optimality 為主要準則，D-optimality 保留作比較。
 - 經典線性模型的 I-optimality 與 GPR 預測不確定度**不可視為數學等價**（見 [`docs/research_methodology.md`](docs/research_methodology.md) §4）。
@@ -274,7 +274,7 @@ src/adore/
   - [ ] Plackett-Burman
   - [ ] 主效應 / Pareto / Half-normal
 - [ ] **v0.2** RSM Design + I-optimal 整合
-  - [ ] CCD、Box-Behnken
+  - [ ] CCD
   - [ ] I-optimal（主要）與 D-optimal（對照）
   - [ ] Design Augmentation、FDS plot
 - [ ] **v0.3** Module 1：Active Learning ⭐ 最高優先
