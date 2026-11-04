@@ -89,7 +89,7 @@
 - **Decision**：目前 `pyproject.toml` 只宣告 `numpy`、`scipy`、`pandas`，以及可選的 `ml`（scikit-learn）、`stats`（statsmodels）、`dev`。其餘於對應階段才決定。
 - **Alternatives**：先全部裝入。
 - **Rationale**：不為尚未實作的功能增加依賴；Phase 7 時在 `pymoo` 與 `DEAP` 之間擇一。
-- **Consequences**：Phase 1/2 時需決定 Screening / CCD / BBD 是用 `pyDOE3` 還是自行實作；I-optimal 與 stepwise / LOF 的細節控制多半需要自行實作並對照 R 參考實作。
+- **Consequences**：Phase 1/2 時需決定 Screening / CCD 是用 `pyDOE3` 還是自行實作；I-optimal 與 stepwise / LOF 的細節控制多半需要自行實作並對照 R 參考實作。
 - **Open questions**：RSM 建模用 `statsmodels` 還是自行以 numpy 實作（影響 AICc、hierarchy stepwise 的可控性）。
 
 ## ADR-009：預測 R² 的定義與邊界情況
