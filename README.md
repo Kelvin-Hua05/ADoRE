@@ -1,3 +1,5 @@
+<div align="center">
+
 # 🧪 ADoRE
 
 **Adaptive Design of Experiments with Residual Enhancement — 從 Screening、自適應實驗設計、RSM 建模、ML 殘差修正到最佳化與敏感度分析的一站式 DoE 工具包**
