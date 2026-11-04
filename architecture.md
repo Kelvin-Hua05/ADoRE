@@ -8,7 +8,7 @@
 ```mermaid
 flowchart TD
     core["core<br/>Factor · Response · Dataset · Experiment"]
-    screening["screening<br/>(選用)"]
+    screening["screening"]
     design["design<br/>CCD · I-optimal · D-optimal · augmentation"]
     al["active_learning (Module 1)<br/>GPR · candidate · acquisition · multi_response · stopping · sequential"]
     rsm["rsm<br/>polynomial · fitting · selection · ANOVA · diagnostics"]
