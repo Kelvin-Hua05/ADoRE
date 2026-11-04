@@ -53,7 +53,7 @@ flowchart TD
 | 模組 | 職責 | 不負責 |
 |---|---|---|
 | `core` | 因子、響應、資料集、實驗紀錄、座標編碼（natural ↔ coded） | 任何統計建模 |
-| `screening` | PB、Fractional Factorial、DSD、主效應 / Pareto / half-normal | RSM 設計 |
+| `screening` | PB、Fractional Factorial、主效應 / Pareto / half-normal | RSM 設計 |
 | `design` | CCD、I-/D-optimal、augmentation、候選集與約束區域處理 | 以 GPR 不確定度做選點 |
 | `active_learning` | GPR 代理、候選點、acquisition、多響應聚合、停止條件、序貫迴圈 | 最終 RSM 建模、殘差修正 |
 | `rsm` | 多項式模型、stepwise、AICc/BIC、hierarchy、ANOVA、LOF、診斷 | 實驗點選擇 |
