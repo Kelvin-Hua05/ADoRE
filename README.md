@@ -46,7 +46,7 @@ ADoRE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Python 
 | 套件骨架 | `import adore`、`adore.__version__` | ✅ |
 | Core | 因子 / 響應 / 資料集結構、顯式 seed 管理 | 📋 |
 | Screening | Plackett-Burman、Fractional Factorial、主效應 / Pareto / Half-normal | 📋 |
-| RSM 設計 | CCD、Box-Behnken、I-optimal（主要）、D-optimal（對照）、Augmentation、FDS plot | 📋 |
+| RSM 設計 | CCD、I-optimal（主要）、D-optimal（對照）、Augmentation、FDS plot | 📋 |
 | **Active Learning** | GPR 代理、Max Predictive Variance、IVR、I-optimal Augmentation、批次建議、多響應停止條件 | 📋 |
 | RSM 建模 | 一階 / 二階模型、Stepwise、AICc / BIC、Hierarchy 約束、ANOVA、Lack-of-Fit | 📋 |
 | 殘差診斷 | Normal plot、Residual vs Fitted / Order / Factor、Cook's D、Leverage、Box-Cox | 📋 |
