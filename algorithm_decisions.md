@@ -89,7 +89,6 @@
 
 **狀態**：Accepted
 
-- **Context**：舊 repo 使用 `yourpkg` 佔位名稱。檢查 PyPI（2026-11-04）：`adore` 已被其他專案使用；`adore-doe` 查無此名稱。
 - **Decision**：發佈名稱（distribution）為 `adore-doe`；**import 名稱改為 `adore_doe`**；repo 名稱另定。
 - **Alternatives**：以 `adore` 發佈（被佔用，不可行）；import 名稱維持 `adore`（與 PyPI 上的 `adore` 可能衝突）。
 - **Rationale**：兩個同名頂層模組 `adore` 會在 `site-packages` 互相覆蓋；發佈名稱與 import 名稱一致可避免此風險。
