@@ -90,9 +90,7 @@
 **狀態**：Accepted
 
 - **Decision**：發佈名稱（distribution）為 `adore-doe`；**import 名稱改為 `adore_doe`**；repo 名稱另定。
-- **Alternatives**：以 `adore` 發佈（被佔用，不可行）；import 名稱維持 `adore`（與 PyPI 上的 `adore` 可能衝突）。
 - **Rationale**：兩個同名頂層模組 `adore` 會在 `site-packages` 互相覆蓋；發佈名稱與 import 名稱一致可避免此風險。
-- **Consequences**：程式碼內所有 `import adore` 需改為 `import adore_doe`。
 - **Open questions**：何時實際註冊 `adore-doe`（建議盡早，目前只是尚未被註冊）。
 
 ## ADR-008：依賴策略（最小化、延後決定）與 BBD 移除
