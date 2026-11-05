@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧪 ADoRE
+# 🧪 ADoRE-DoE
 
 **Adaptive Design of Experiments with Residual Enhancement — 從 Screening、自適應實驗設計、RSM 建模、ML 殘差修正到最佳化與敏感度分析的一站式 DoE 工具包**
 
@@ -24,7 +24,7 @@
 
 ## 📖 簡介
 
-ADoRE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Python 工具包，目標是用**最少的昂貴實驗**達到預先設定的預測準確度，同時保留傳統 RSM 的可解釋性（明確方程式、ANOVA、Lack-of-Fit）：
+ADoRE-DoE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Python 工具包，目標是用**最少的昂貴實驗**達到預先設定的預測準確度，同時保留傳統 RSM 的可解釋性（明確方程式、ANOVA、Lack-of-Fit）：
 
 1. **Screening**：Plackett-Burman 篩選關鍵因子
 2. **RSM Design**：CCD、I-optimal（含 D-optimal 對照）、Augmentation
