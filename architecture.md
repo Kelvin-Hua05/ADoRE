@@ -114,7 +114,3 @@ sequenceDiagram
 - 新殘差模型：實作 `ResidualCorrector` 所需的 regressor 介面（fit / predict）。
 - 新停止條件：實作 `StoppingRule`，可組合（所有條件 AND）。
 - 新 benchmark 群組：以 design strategy 與 final model 的組合描述。
-
-## 7. 從舊 repo 結構的對應
-
-見 [`repository_audit.md`](repository_audit.md) §3。
