@@ -19,7 +19,7 @@
 
 ---
 
-> ⚠️ **狀態：Pre-alpha（Phase 1 完成）** 已實作 **Core 與 Screening**（Plackett-Burman、Fractional Factorial、主效應分析、t-limit / Bonferroni / Lenth、逐步篩選、圖表）。其餘階段（RSM Design、Active Learning、RSM 建模、殘差修正、Benchmark、最佳化、敏感度分析）**尚未實作**。下文所有功能皆標示實作狀態，**未標示 ✅ 者都不能使用**；PyPI、CI、Codecov、Docs 徽章在對應服務建立前可能顯示為未知或失敗，屬預期狀態。
+> ⚠️ **狀態：Pre-alpha（Phase 2 完成）** 已實作 **Core（含 seed 管理）、Screening** 與 **RSM Design**（CCD、I-optimal / D-optimal、augmentation、線性約束區域、FDS）。其餘階段（Active Learning、RSM 建模、殘差修正、Benchmark、最佳化、敏感度分析）**尚未實作**。下文所有功能皆標示實作狀態，**未標示 ✅ 者都不能使用**；PyPI、CI、Codecov、Docs 徽章在對應服務建立前可能顯示為未知或失敗，屬預期狀態。
 
 ## 📖 簡介
 
@@ -43,9 +43,9 @@ ADoRE-DoE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Pyt
 | 階段 | 功能 | 狀態 |
 |------|------|:----:|
 | 套件骨架 | `import adore_doe`、`adore_doe.__version__` | ✅ |
-| Core | 因子 / 響應 / 資料集結構（多響應共用同一 X）；各隨機程序有顯式 `seed` 參數，獨立的 seed 管理待決 | 🚧 |
+| Core | 因子 / 響應 / 資料集結構（多響應共用同一 X）、顯式 seed 管理（root seed＋具名子串流，記錄於 `info`） | ✅ |
 | Screening | Plackett-Burman、Fractional Factorial、主效應 / Pareto / Half-normal | ✅ |
-| RSM 設計 | CCD、I-optimal（主要）、D-optimal（對照）、Augmentation、FDS plot | 📋 |
+| RSM 設計 | CCD（face-centered）、I-optimal（主要）、D-optimal（對照）、Augmentation、線性約束區域、FDS plot | ✅ |
 | **Active Learning** | GPR 代理、Max Predictive Variance、IVR、I-optimal Augmentation、批次建議、多響應停止條件 | 📋 |
 | RSM 建模 | 一階 / 二階模型、Stepwise、AICc / BIC、Hierarchy 約束、ANOVA、Lack-of-Fit | 📋 |
 | 殘差診斷 | Normal plot、Residual vs Fitted / Order / Factor、Cook's D、Leverage、Box-Cox | 📋 |
@@ -121,7 +121,21 @@ result.plot_pareto(); result.plot_half_normal()           # 需要 [plot]
 result.selected_factors                                   # 進入 RSM Design 的候選因子（不是定論）
 ```
 
-完整範例：[`examples/01_screening.ipynb`](examples/01_screening.ipynb)；方法與限制：[`docs/screening.md`](docs/screening.md)。
+**RSM Design（Phase 2）：**
+
+```python
+from adore_doe import design
+
+d_ccd = design.ccd(factors, center_points=1)                       # face-centered，2^k + 2k + 1 runs
+d_i   = design.i_optimal(factors, "quadratic", runs=15, seed=1)    # 主要設計；runs 無預設值
+d_d   = design.d_optimal(factors, "quadratic", runs=15, seed=1)    # 比較用
+aug   = design.augment(d_i, 3, criterion="I", seed=2)              # 只建議、不執行模擬
+design.plot_fds({"CCD": design.fds(d_ccd, seed=1), "I-opt": design.fds(d_i, seed=1)})
+```
+
+範例：[`examples/02_rsm_design.ipynb`](examples/02_rsm_design.ipynb)；規格與限制：[`docs/rsm_design.md`](docs/rsm_design.md)。
+
+Screening 範例：[`examples/01_screening.ipynb`](examples/01_screening.ipynb)；方法與限制：[`docs/screening.md`](docs/screening.md)。
 
 **以下為概念性流程（pseudocode），Phase 2 以後的呼叫都尚未實作，僅用於說明預期用法：**
 
@@ -238,7 +252,8 @@ GA 保留給**最終製程 / 設計參數最佳化**（Desirability、SQP、GA�
 ```
 ADoRE-DoE/
 ├── src/adore_doe/
-│   ├── core/            # Factor / Response / ExperimentDataset / Experiment
+│   ├── core/            # Factor / Response / ExperimentDataset / Experiment、seed 管理
+│   ├── design/          # CCD、I-/D-optimal、augmentation、候選集、約束區域、FDS
 │   ├── screening/       # PB、Fractional Factorial、主效應、limits、篩選、圖表
 │   └── exceptions.py
 ├── tests/
@@ -252,9 +267,9 @@ ADoRE-DoE/
 
 ```
 src/adore_doe/
-├── core/              # Factor / Response / Dataset、seed 管理
+├── core/              # Factor / Response / Dataset、seed 管理          ← 已實作
 ├── screening/         # PB、Fractional Factorial、主效應分析          ← 已實作
-├── design/            # CCD、I-/D-optimal、augmentation
+├── design/            # CCD、I-/D-optimal、augmentation                ← 已實作
 ├── active_learning/   # GPR 代理、acquisition、停止條件
 ├── rsm/               # 多項式模型、Stepwise、ANOVA、LOF、轉換、WLS
 ├── diagnostics/       # 殘差圖、Leverage、Cook's D、Box-Cox
@@ -280,17 +295,17 @@ src/adore_doe/
 > 順序對應 [`docs/development_roadmap.md`](docs/development_roadmap.md)；各階段的測試與驗收標準以該文件為準。完成一項就把 `[ ]` 改為 `[x]`。
 
 - [x] **v0.0** 套件骨架（`import adore_doe`、`adore_doe.__version__`、smoke test）
-- [ ] **v0.1** Core 資料結構 + Screening（Plackett-Burman、Fractional Factorial）+ 主效應分析
+- [x] **v0.1** Core 資料結構 + Screening（Plackett-Burman、Fractional Factorial）+ 主效應分析
 
   - [x] Factor / Response / Dataset
-  - [ ] 顯式 seed 管理（各函式已有顯式 `seed` 參數並記錄於 `info["seed"]`；是否需要獨立的 seed 工具待決）
+  - [x] 顯式 seed 管理
   - [x] Plackett-Burman、Fractional Factorial
   - [x] 主效應 / Pareto / Half-normal
-- [ ] **v0.2** RSM Design + I-optimal 整合
+- [x] **v0.2** RSM Design + I-optimal 整合
 
-  - [ ] CCD
-  - [ ] I-optimal（主要）與 D-optimal（對照）
-  - [ ] Design Augmentation、FDS plot
+  - [x] CCD
+  - [x] I-optimal（主要）與 D-optimal（對照）
+  - [x] Design Augmentation、FDS plot
 - [ ] **v0.3** Module 1：Active Learning ⭐ 最高優先
 
   - [ ] GPR 代理模型
@@ -331,8 +346,9 @@ src/adore_doe/
 | 文件 | 內容 |
 |------|------|
 | [`docs/architecture.md`](docs/architecture.md) | 架構圖、模組職責、資料流、介面草案 |
-| [`docs/architecture_core_interfaces.md`](docs/architecture_core_interfaces.md) | Phase 1 定案的核心介面（可併入 architecture.md §5） |
+| [`docs/architecture_core_interfaces.md`](docs/architecture_core_interfaces.md) | 核心介面與 seed 管理（可併入 architecture.md §5） |
 | [`docs/screening.md`](docs/screening.md) | Screening 的 API、統計定義、驗證範圍與限制 |
+| [`docs/rsm_design.md`](docs/rsm_design.md) | RSM Design 的 API、§4.2 規格對照、seed 管理、驗證範圍與限制 |
 | [`docs/research_methodology.md`](docs/research_methodology.md) | 數學目標、策略、停止條件、benchmark 方法 |
 | [`docs/development_roadmap.md`](docs/development_roadmap.md) | 階段、依賴、測試、驗收標準 |
 | [`docs/algorithm_decisions.md`](docs/algorithm_decisions.md) | ADR 形式的技術決策 |

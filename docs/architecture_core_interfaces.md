@@ -27,3 +27,14 @@
 * CSV 往返無損（含 source、stage、response 設定、執行順序、dummy 欄位）；actual 與 coded 欄位不一致時報錯。
 * 驗證資料（`source="validation"`）可由 `training()` 排除，不會混入訓練。
 * 所有隨機程序（`randomize`、設計產生）接受顯式 seed 並記錄於 `info["seed"]`。
+
+## Phase 2 補充：seed 管理與設計資料的交接欄位
+
+| 項目 | 決定 |
+|---|---|
+| Seed 規則 | 任何隨機程序都接受 `seed`（非負整數或 None）；`None` 會產生並**記錄**種子；不使用 NumPy 全域亂數 |
+| `core/seed.py` | `check_seed`、`resolve_seed`、`make_rng`、`derive_seed(root, *names)`（SHA-256，跨行程一致）、`SeedManager`（root＋具名獨立子串流，`as_dict()` 供記錄） |
+| 記錄位置 | `dataset.info["seed"]`（root）與 `dataset.info["seeds"]`（root＋實際使用的子 seed） |
+| 設計資料交接（給 RSM 建模） | 設計函式回傳 `ExperimentDataset`；`info` 含 `design_type`、`model_spec`（`ModelSpec.to_dict()`，可用 `ModelSpec.from_dict` 還原）、`rank`、`cond_X`、`I_criterion` / `logdet_XtX`、`seeds`；`point_type` ∈ {factorial, axial, center, optimal, included, augment}；`source` 記錄 augmentation 來源 |
+| 新例外 | `InfeasibleRegionError(DesignError)`：約束區域為空或可行比例過小 |
+
