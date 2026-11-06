@@ -15,3 +15,7 @@ class InferenceError(RuntimeError):
 
 class InferenceWarning(UserWarning):
     """Statistical inference is limited or approximate (e.g. low df, missing runs)."""
+
+
+class InfeasibleRegionError(DesignError):
+    """The constrained design region is empty or its feasible fraction is too small to sample."""
