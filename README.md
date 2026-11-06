@@ -6,27 +6,26 @@
 
 *An end-to-end adaptive DoE toolkit: Screening → RSM Design → Active Learning → RSM Modeling → ML Residual Correction → Benchmark → Optimization → Sensitivity Analysis*
 
-[![PyPI](https://img.shields.io/pypi/v/adore.svg)](https://pypi.org/project/adore/)
-[![Python](https://img.shields.io/pypi/pyversions/adore.svg)](https://pypi.org/project/adore/)
-[![CI](https://github.com/Kelvin-Hua05/ADoRE/actions/workflows/ci.yml/badge.svg)](https://github.com/Kelvin-Hua05/ADoRE/actions)
-[![codecov](https://codecov.io/gh/Kelvin-Hua05/ADoRE/branch/main/graph/badge.svg)](https://codecov.io/gh/Kelvin-Hua05/ADoRE)
+[![PyPI](https://img.shields.io/pypi/v/adore-doe.svg)](https://pypi.org/project/adore-doe/)
+[![Python](https://img.shields.io/pypi/pyversions/adore-doe.svg)](https://pypi.org/project/adore-doe/)
+[![CI](https://github.com/Kelvin-Hua05/ADoRE-DoE/actions/workflows/ci.yml/badge.svg)](https://github.com/Kelvin-Hua05/ADoRE-DoE/actions)
+[![codecov](https://codecov.io/gh/Kelvin-Hua05/ADoRE-DoE/branch/main/graph/badge.svg)](https://codecov.io/gh/Kelvin-Hua05/ADoRE-DoE)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://kelvin-hua05.github.io/ADoRE)
+[![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://kelvin-hua05.github.io/ADoRE-DoE)
 
 [快速開始](#-快速開始) · [功能特色](#-功能特色) · [文件](#-文件與索引) · [Roadmap](#-roadmap)
 
 </div>
+
 ---
 
-> ⚠️ **狀態：Pre-alpha（文件與架構階段）**
-> 目前**沒有任何研究演算法被實作**。repo 內只有套件骨架（`import adore_doe`、`adore.__version__`）、架構文件與開發規劃。
-> 下文所有功能皆標示實作狀態，**未標示 ✅ 者都不能使用**；PyPI、CI、Codecov、Docs 徽章在對應服務建立前可能顯示為未知或失敗，屬預期狀態。
+> ⚠️ **狀態：Pre-alpha（Phase 1 完成）** 已實作 **Core 與 Screening**（Plackett-Burman、Fractional Factorial、主效應分析、t-limit / Bonferroni / Lenth、逐步篩選、圖表）。其餘階段（RSM Design、Active Learning、RSM 建模、殘差修正、Benchmark、最佳化、敏感度分析）**尚未實作**。下文所有功能皆標示實作狀態，**未標示 ✅ 者都不能使用**；PyPI、CI、Codecov、Docs 徽章在對應服務建立前可能顯示為未知或失敗，屬預期狀態。
 
 ## 📖 簡介
 
 ADoRE-DoE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Python 工具包，目標是用**最少的昂貴實驗**達到預先設定的預測準確度，同時保留傳統 RSM 的可解釋性（明確方程式、ANOVA、Lack-of-Fit）：
 
-1. **Screening**：Plackett-Burman 篩選關鍵因子
+1. **Screening**：Plackett-Burman、Fractional Factorial 篩選關鍵因子
 2. **RSM Design**：CCD、I-optimal（含 D-optimal 對照）、Augmentation
 3. **Active Learning（Module 1）**：以 GPR 代理模型序貫建議下一個實驗點，目標是全域預測改善
 4. **RSM 建模與診斷**：二階多項式、Stepwise、AICc / BIC、ANOVA、Lack-of-Fit、殘差診斷、轉換 / WLS
@@ -37,15 +36,15 @@ ADoRE-DoE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Pyt
 
 ### 為什麼做這個？
 
-傳統 DOE 一次決定整組實驗點，不會根據已得資料調整；傳統 RSM 的多項式模型在曲率複雜時，殘差中常含有結構性訊號。ADoRE 同時處理這兩件事：實驗點「怎麼選」（Adaptive DOE），以及模型「怎麼補」（Residual Enhancement），並在相同條件下做公平對照。
+傳統 DOE 一次決定整組實驗點，不會根據已得資料調整；傳統 RSM 的多項式模型在曲率複雜時，殘差中常含有結構性訊號。ADoRE-DoE 同時處理這兩件事：實驗點「怎麼選」（Adaptive DOE），以及模型「怎麼補」（Residual Enhancement），並在相同條件下做公平對照。
 
 ## ✨ 功能特色
 
 | 階段 | 功能 | 狀態 |
 |------|------|:----:|
-| 套件骨架 | `import adore`、`adore.__version__` | ✅ |
-| Core | 因子 / 響應 / 資料集結構、顯式 seed 管理 | 📋 |
-| Screening | Plackett-Burman、Fractional Factorial、主效應 / Pareto / Half-normal | 📋 |
+| 套件骨架 | `import adore_doe`、`adore_doe.__version__` | ✅ |
+| Core | 因子 / 響應 / 資料集結構（多響應共用同一 X）；各隨機程序有顯式 `seed` 參數，獨立的 seed 管理待決 | 🚧 |
+| Screening | Plackett-Burman、Fractional Factorial、主效應 / Pareto / Half-normal | ✅ |
 | RSM 設計 | CCD、I-optimal（主要）、D-optimal（對照）、Augmentation、FDS plot | 📋 |
 | **Active Learning** | GPR 代理、Max Predictive Variance、IVR、I-optimal Augmentation、批次建議、多響應停止條件 | 📋 |
 | RSM 建模 | 一階 / 二階模型、Stepwise、AICc / BIC、Hierarchy 約束、ANOVA、Lack-of-Fit | 📋 |
@@ -63,7 +62,7 @@ ADoRE-DoE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Pyt
 ## 🔄 整體流程
 
 ```
-[選用] Screening（PB）
+[選用] Screening（PB / Fractional Factorial）
         │
         ▼
 RSM Design（CCD / I-optimal / …）──► 初始實驗資料
@@ -90,32 +89,44 @@ Benchmark（四組比較）   最佳化（Desirability / SQP / GA / NSGA-II）  
 目前**尚未發佈到 PyPI**，僅支援從原始碼安裝（**需求**：Python ≥ 3.10）：
 
 ```bash
-git clone https://github.com/Kelvin-Hua05/ADoRE.git
-cd ADoRE
+git clone https://github.com/Kelvin-Hua05/ADoRE-DoE.git
+cd ADoRE-DoE
 pip install -e ".[dev]"
 pytest
 ```
 
+核心依賴只有 numpy、scipy、pandas；畫圖需要 `pip install -e ".[plot]"`（matplotlib）。
+
 發佈後預計提供（📋 尚不可用）：
 
 ```bash
-pip install adore            # 核心
-pip install "adore[all]"     # 含最佳化 / 敏感度分析 / 報告輸出
+pip install adore-doe
+pip install "adore-doe[plot]"
 ```
 
 ## 🚀 快速開始
 
-**目前唯一可用的 API：**
+**目前可用的 API（Phase 1：Core + Screening）：**
 
 ```python
-import adore
-print(adore.__version__)
+import adore_doe as ad
+
+factors = [ad.Factor("A", 0.1, 0.3), ad.Factor("B", 10, 20), ad.Factor("C", 1, 5)]
+design = ad.screening.plackett_burman(factors, runs=8, center_points=3, randomize=True, seed=1)
+design.to_csv("design.csv")                               # 依執行順序匯出
+design.add_response("Yield", values)                      # 或 order="run"（依執行順序填）
+effects = ad.screening.main_effects(design, "Yield", alpha=0.05)
+result = ad.screening.screen(effects, criterion="bonferroni")
+result.plot_pareto(); result.plot_half_normal()           # 需要 [plot]
+result.selected_factors                                   # 進入 RSM Design 的候選因子（不是定論）
 ```
 
-**以下為概念性流程（pseudocode），所有呼叫都尚未實作，僅用於說明預期用法：**
+完整範例：[`examples/01_screening.ipynb`](examples/01_screening.ipynb)；方法與限制：[`docs/screening.md`](docs/screening.md)。
+
+**以下為概念性流程（pseudocode），Phase 2 以後的呼叫都尚未實作，僅用於說明預期用法：**
 
 ```python
-import adore as ad
+import adore_doe as ad
 
 # 1. 定義因子與響應
 factors = [
@@ -124,9 +135,6 @@ factors = [
     ad.Factor("Height",  low=0.2, high=1.0, unit="um"),
 ]
 responses = [ad.Response("C"), ad.Response("R")]
-
-# 2. （選用）Screening
-screen = ad.design.plackett_burman(factors, runs=12, center_points=3)
 
 # 3. RSM 初始設計（I-optimal）
 initial = ad.design.rsm_design(factors, method="i_optimal", n_runs=15, seed=0)
@@ -210,7 +218,7 @@ GA 保留給**最終製程 / 設計參數最佳化**（Desirability、SQP、GA�
 ## 📊 四組 Benchmark
 
 | 組別 | 實驗設計 | 最終模型 |
-|:----:|----------|----------|
+|:--:|-----------------|------------------------------|
 | A | Traditional DOE | RSM |
 | B | Adaptive DOE | RSM |
 | C | Traditional DOE | RSM + ML Residual Correction |
@@ -228,10 +236,14 @@ GA 保留給**最終製程 / 設計參數最佳化**（Desirability、SQP、GA�
 目前實際存在：
 
 ```
-ADoRE/
-├── src/adore/__init__.py
-├── tests/test_package.py
+ADoRE-DoE/
+├── src/adore_doe/
+│   ├── core/            # Factor / Response / ExperimentDataset / Experiment
+│   ├── screening/       # PB、Fractional Factorial、主效應、limits、篩選、圖表
+│   └── exceptions.py
+├── tests/
 ├── docs/
+├── examples/
 ├── pyproject.toml
 └── README.md
 ```
@@ -239,9 +251,9 @@ ADoRE/
 目標架構（**尚未建立**，各目錄於對應開發階段才建立，不預先建立空模組）：
 
 ```
-src/adore/
+src/adore_doe/
 ├── core/              # Factor / Response / Dataset、seed 管理
-├── screening/         # PB、主效應分析
+├── screening/         # PB、Fractional Factorial、主效應分析          ← 已實作
 ├── design/            # CCD、I-/D-optimal、augmentation
 ├── active_learning/   # GPR 代理、acquisition、停止條件
 ├── rsm/               # 多項式模型、Stepwise、ANOVA、LOF、轉換、WLS
@@ -258,8 +270,8 @@ src/adore/
 
 ## ✅ 驗證與可重現性
 
-- 目前沒有任何統計或演算法結果可供驗證，**不宣稱**與任何商業軟體相容，也不宣稱「已完整驗證」。
-- 規劃的驗證方式：以教科書公開範例與 R 參考實作（`rsm`、`AlgDesign`、`FrF2` 等）做數值回歸測試；通過後才會在文件中記載對照結果。
+- Screening 已與獨立公式、SciPy 及 Montgomery 2⁴ 過濾速率範例的已知效應對照（資料為人工輸入，請對照原書）；**尚未與 R 參考實作（`rsm`、`AlgDesign`、`FrF2`）對照**，**不宣稱**與任何商業軟體相容，也不宣稱「已完整驗證」。詳見 [`docs/screening.md`](docs/screening.md) §5。
+- 規劃的驗證方式：以教科書公開範例與 R 參考實作做數值回歸測試；通過後才會在文件中記載對照結果。
 - 預計參考教科書：Montgomery, *Design and Analysis of Experiments*；Myers et al., *Response Surface Methodology*。
 - 所有隨機程序（候選點、評估集、初始設計、CV 切分）都必須接受顯式 seed。
 
@@ -267,49 +279,60 @@ src/adore/
 
 > 順序對應 [`docs/development_roadmap.md`](docs/development_roadmap.md)；各階段的測試與驗收標準以該文件為準。完成一項就把 `[ ]` 改為 `[x]`。
 
-- [x] **v0.0** 套件骨架（`import adore`、`adore.__version__`、smoke test）
-- [ ] **v0.1** Core 資料結構 + Screening（Plackett-Burman）+ 主效應分析
-  - [ ] Factor / Response / Dataset
-  - [ ] 顯式 seed 管理
-  - [ ] Plackett-Burman
-  - [ ] 主效應 / Pareto / Half-normal
+- [x] **v0.0** 套件骨架（`import adore_doe`、`adore_doe.__version__`、smoke test）
+- [ ] **v0.1** Core 資料結構 + Screening（Plackett-Burman、Fractional Factorial）+ 主效應分析
+
+  - [x] Factor / Response / Dataset
+  - [ ] 顯式 seed 管理（各函式已有顯式 `seed` 參數並記錄於 `info["seed"]`；是否需要獨立的 seed 工具待決）
+  - [x] Plackett-Burman、Fractional Factorial
+  - [x] 主效應 / Pareto / Half-normal
 - [ ] **v0.2** RSM Design + I-optimal 整合
+
   - [ ] CCD
   - [ ] I-optimal（主要）與 D-optimal（對照）
   - [ ] Design Augmentation、FDS plot
 - [ ] **v0.3** Module 1：Active Learning ⭐ 最高優先
+
   - [ ] GPR 代理模型
   - [ ] Acquisition：Max Variance、IVR、I-optimal Augmentation
   - [ ] 批次建議
   - [ ] 多響應停止條件
 - [ ] **v0.4** 最終 RSM 建模與診斷
+
   - [ ] 二階模型、Stepwise、AICc / BIC、Hierarchy 約束
   - [ ] ANOVA、Lack-of-Fit
   - [ ] 殘差診斷全套 + 轉換 / WLS
 - [ ] **v0.5** Module 2：ML 殘差修正
+
   - [ ] OOF 殘差建立
   - [ ] GPR / ANN / RF / SVR 候選模型
   - [ ] 獨立驗證集評估
 - [ ] **v0.6** 四組研究 Benchmark ⭐ 最高優先
+
   - [ ] 固定 run 預算比較
   - [ ] 目標準確度比較
   - [ ] 多種子重複與統計彙整
 - [ ] **v0.7** 最佳化與敏感度分析
+
   - [ ] Desirability、SQP、GA、NSGA-II
   - [ ] Perturbation、Tornado、Sobol、Morris、Monte Carlo
 - [ ] **v1.0** Pipeline、報告輸出、穩定 API、完整文件
+
   - [ ] YAML Pipeline
   - [ ] HTML / PDF / Excel 報告
   - [ ] 以參考實作完成數值回歸驗證
+  - [ ] 註冊 PyPI 套件名稱 `adore-doe`（查詢時尚未被註冊；建議盡早，避免被他人佔用）
   - [ ] 發佈 PyPI、啟用 CI / Codecov / Docs
 
-詳見 [Projects](https://github.com/Kelvin-Hua05/ADoRE/projects) 與 [Issues](https://github.com/Kelvin-Hua05/ADoRE/issues)。
+詳見 [Projects](https://github.com/Kelvin-Hua05/ADoRE-DoE/projects) 與 [Issues](https://github.com/Kelvin-Hua05/ADoRE-DoE/issues)。
 
 ## 📚 文件與索引
 
 | 文件 | 內容 |
 |------|------|
 | [`docs/architecture.md`](docs/architecture.md) | 架構圖、模組職責、資料流、介面草案 |
+| [`docs/architecture_core_interfaces.md`](docs/architecture_core_interfaces.md) | Phase 1 定案的核心介面（可併入 architecture.md §5） |
+| [`docs/screening.md`](docs/screening.md) | Screening 的 API、統計定義、驗證範圍與限制 |
 | [`docs/research_methodology.md`](docs/research_methodology.md) | 數學目標、策略、停止條件、benchmark 方法 |
 | [`docs/development_roadmap.md`](docs/development_roadmap.md) | 階段、依賴、測試、驗收標準 |
 | [`docs/algorithm_decisions.md`](docs/algorithm_decisions.md) | ADR 形式的技術決策 |
@@ -324,25 +347,25 @@ pip install -e ".[dev]"
 pytest
 ```
 
-- 🐛 回報 Bug：[開啟 Issue](https://github.com/Kelvin-Hua05/ADoRE/issues/new)
-- 💡 功能建議：[Discussions](https://github.com/Kelvin-Hua05/ADoRE/discussions)
+- 🐛 回報 Bug：[開啟 Issue](https://github.com/Kelvin-Hua05/ADoRE-DoE/issues/new)
+- 💡 功能建議：[Discussions](https://github.com/Kelvin-Hua05/ADoRE-DoE/discussions)
 
 ## 📝 引用
 
 如果這個專案對你的研究有幫助，請引用：
 
 ```bibtex
-@software{adore,
+@software{adore_doe,
   author  = {Kelvin-Hua05},
-  title   = {ADoRE: Adaptive Design of Experiments with Residual Enhancement},
+  title   = {ADoRE-DoE: Adaptive Design of Experiments with Residual Enhancement},
   year    = {2026},
-  url     = {https://github.com/Kelvin-Hua05/ADoRE}
+  url     = {https://github.com/Kelvin-Hua05/ADoRE-DoE}
 }
 ```
 
 ## 🙏 致謝
 
-規劃中預計建立於以下開源專案之上（目前尚未成為實際依賴）：
+規劃中預計建立於以下開源專案之上（目前僅 numpy、scipy、pandas 為實際依賴；其餘為選用或尚未使用）：
 [`statsmodels`](https://www.statsmodels.org) · [`scikit-learn`](https://scikit-learn.org) · [`pyDOE3`](https://github.com/relf/pyDOE3) · [`SALib`](https://github.com/SALib/SALib) · [`pymoo`](https://pymoo.org) · [`DEAP`](https://github.com/DEAP/deap)
 
 ## 📄 授權
