@@ -28,7 +28,7 @@
 
 ### Phase 0 — 骨架與文件（本次）
 
-- 交付：`pyproject.toml`、`src/adore/__init__.py`、smoke test、README、`docs/*`。
+- 交付：`pyproject.toml`、`src/adore_doe/__init__.py`、smoke test、README、`docs/*`。
 - 測試：`pytest`（僅驗證可 import 與版本字串）。
 - 驗收：文件術語一致；沒有宣稱未實作的功能。
 
