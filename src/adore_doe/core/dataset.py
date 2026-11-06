@@ -19,6 +19,7 @@ import pandas as pd
 
 from ..exceptions import DesignError
 from .factor import Factor, Response
+from .seed import make_rng, resolve_seed
 
 _RESERVED = {"StdOrder", "RunOrder", "PointType", "Source", "Stage"}
 _META_PREFIX = "# adore_doe-dataset "
@@ -305,9 +306,8 @@ class ExperimentDataset:
 
     # --------------------------------------------------------- randomising
     def randomize(self, seed: int | None = None):
-        if seed is None:
-            seed = int(np.random.SeedSequence().entropy % (2**32))
-        self.run_order = np.random.default_rng(seed).permutation(self.n_runs) + 1
+        seed = resolve_seed(seed)
+        self.run_order = make_rng(seed).permutation(self.n_runs) + 1
         self.info["randomized"] = True
         self.info["seed"] = int(seed)
         return self
