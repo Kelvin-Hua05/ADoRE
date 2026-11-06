@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 # import 名稱為 `adore_doe`。詳見 docs/algorithm_decisions.md ADR-007。
 name = "adore-doe"
 dynamic = ["version"]
-description = "ADoRE: Adaptive Design of Experiments with Residual Enhancement (RSM + Active Learning + ML residual correction)"
+description = "ADoRE-DoE: Adaptive Design of Experiments with Residual Enhancement (RSM + Active Learning + ML residual correction)"
 readme = "README.md"
 requires-python = ">=3.10"
 # authors / license 欄位刻意留白，由專案擁有者自行填寫。

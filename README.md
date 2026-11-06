@@ -8,10 +8,10 @@
 
 [![PyPI](https://img.shields.io/pypi/v/adore.svg)](https://pypi.org/project/adore/)
 [![Python](https://img.shields.io/pypi/pyversions/adore.svg)](https://pypi.org/project/adore/)
-[![CI](https://github.com/Kelvin-Hua05/ADoRE/actions/workflows/ci.yml/badge.svg)](https://github.com/Kelvin-Hua05/ADoRE/actions)
-[![codecov](https://codecov.io/gh/Kelvin-Hua05/ADoRE/branch/main/graph/badge.svg)](https://codecov.io/gh/Kelvin-Hua05/ADoRE)
+[![CI](https://github.com/Kelvin-Hua05/ADoRE-DoE/actions/workflows/ci.yml/badge.svg)](https://github.com/Kelvin-Hua05/ADoRE-DoE/actions)
+[![codecov](https://codecov.io/gh/Kelvin-Hua05/ADoRE-DoE/branch/main/graph/badge.svg)](https://codecov.io/gh/Kelvin-Hua05/ADoRE-DoE)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://kelvin-hua05.github.io/ADoRE)
+[![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://kelvin-hua05.github.io/ADoRE-DoE)
 
 [快速開始](#-快速開始) · [功能特色](#-功能特色) · [文件](#-文件與索引) · [Roadmap](#-roadmap)
 
@@ -37,7 +37,7 @@ ADoRE-DoE 把「實驗點怎麼選」與「模型怎麼補」整合成單一 Pyt
 
 ### 為什麼做這個？
 
-傳統 DOE 一次決定整組實驗點，不會根據已得資料調整；傳統 RSM 的多項式模型在曲率複雜時，殘差中常含有結構性訊號。ADoRE 同時處理這兩件事：實驗點「怎麼選」（Adaptive DOE），以及模型「怎麼補」（Residual Enhancement），並在相同條件下做公平對照。
+傳統 DOE 一次決定整組實驗點，不會根據已得資料調整；傳統 RSM 的多項式模型在曲率複雜時，殘差中常含有結構性訊號。ADoRE-DoE 同時處理這兩件事：實驗點「怎麼選」（Adaptive DOE），以及模型「怎麼補」（Residual Enhancement），並在相同條件下做公平對照。
 
 ## ✨ 功能特色
 
@@ -90,8 +90,8 @@ Benchmark（四組比較）   最佳化（Desirability / SQP / GA / NSGA-II）  
 目前**尚未發佈到 PyPI**，僅支援從原始碼安裝（**需求**：Python ≥ 3.10）：
 
 ```bash
-git clone https://github.com/Kelvin-Hua05/ADoRE.git
-cd ADoRE
+git clone https://github.com/Kelvin-Hua05/ADoRE-DoE.git
+cd ADoRE-DoE
 pip install -e ".[dev]"
 pytest
 ```
@@ -228,7 +228,7 @@ GA 保留給**最終製程 / 設計參數最佳化**（Desirability、SQP、GA�
 目前實際存在：
 
 ```
-ADoRE/
+ADoRE-DoE/
 ├── src/adore/__init__.py
 ├── tests/test_package.py
 ├── docs/
@@ -303,7 +303,7 @@ src/adore/
   - [ ] 以參考實作完成數值回歸驗證
   - [ ] 發佈 PyPI、啟用 CI / Codecov / Docs
 
-詳見 [Projects](https://github.com/Kelvin-Hua05/ADoRE/projects) 與 [Issues](https://github.com/Kelvin-Hua05/ADoRE/issues)。
+詳見 [Projects](https://github.com/Kelvin-Hua05/ADoRE-DoE/projects) 與 [Issues](https://github.com/Kelvin-Hua05/ADoRE-DoE/issues)。
 
 ## 📚 文件與索引
 
@@ -324,8 +324,8 @@ pip install -e ".[dev]"
 pytest
 ```
 
-- 🐛 回報 Bug：[開啟 Issue](https://github.com/Kelvin-Hua05/ADoRE/issues/new)
-- 💡 功能建議：[Discussions](https://github.com/Kelvin-Hua05/ADoRE/discussions)
+- 🐛 回報 Bug：[開啟 Issue](https://github.com/Kelvin-Hua05/ADoRE-DoE/issues/new)
+- 💡 功能建議：[Discussions](https://github.com/Kelvin-Hua05/ADoRE-DoE/discussions)
 
 ## 📝 引用
 
@@ -334,9 +334,9 @@ pytest
 ```bibtex
 @software{adore,
   author  = {Kelvin-Hua05},
-  title   = {ADoRE: Adaptive Design of Experiments with Residual Enhancement},
+  title   = {ADoRE-DoE: Adaptive Design of Experiments with Residual Enhancement},
   year    = {2026},
-  url     = {https://github.com/Kelvin-Hua05/ADoRE}
+  url     = {https://github.com/Kelvin-Hua05/ADoRE-DoE}
 }
 ```
 

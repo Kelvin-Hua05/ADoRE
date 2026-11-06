@@ -85,27 +85,20 @@
 - **Consequences**：OOF 殘差略大於全資料 RSM 殘差（分布偏差）；小樣本下 CV 方差大，須文件化；以 OOF 選 $\lambda$ 時須避免用同一份資料再評估（需巢狀或獨立驗證）。
 - **Open questions**：重複次數預設值； $\lambda$ 選擇是否需要巢狀 CV。
 
-## ADR-007：Python 套件命名
-
-**狀態**：Accepted
-
-- **Decision**：發佈名稱（distribution）為 `adore-doe`；**import 名稱改為 `adore_doe`**；repo 名稱另定。
-- **Rationale**：兩個同名頂層模組 `adore` 會在 `site-packages` 互相覆蓋；發佈名稱與 import 名稱一致可避免此風險。
-- **Open questions**：何時實際註冊 `adore-doe`（建議盡早，目前只是尚未被註冊）。
-
 ## ADR-008：依賴策略（最小化、延後決定）與 BBD 移除
 
 **狀態**：Accepted
 
 - **Context**：舊規劃列出 `statsmodels`、`scikit-learn`、`pyDOE3`、`SALib`、`pymoo`、`DEAP`；其中 `pymoo` 與 `DEAP` 功能重疊。
 - **Decision**：
-  1. 目前 `pyproject.toml` 只宣告 `numpy`、`scipy`、`pandas`，以及可選的 `ml`（scikit-learn）、`stats`（statsmodels）、`dev`。其餘依功能階段才決定。
+  1. 目前 `pyproject.toml` 只宣告 `numpy`、`scipy`、`pandas`，以及可選的 `plot`（matplotlib）、`ml`（scikit-learn）、`stats`（statsmodels）、`dev`。其餘依功能階段才決定。
   2. 決策原則：**以方便維護與方便控制為主**。
   3. Phase 1/2 時決定 Screening / CCD 用 `pyDOE3` 或自行實作，以及 RSM 建模用 `statsmodels` 或 numpy；Phase 7 時在 `pymoo` 與 `DEAP` 間擇一。
   4. **Box-Behnken Design（BBD）不實作**，從規劃與依賴考量中移除。
 - **Alternatives**：先全部裝入。
 - **Rationale**：不為尚未實作的功能增加依賴；I-optimal 與 stepwise / LOF 的細節控制多半需要自行實作並對照 R 參考實作。
 - **Consequences**：依上述原則，RSM 核心（AICc、hierarchy stepwise）傾向自行實作，並以 `statsmodels` 作對照驗證（待 Phase 1/2 確認）。
+- **Phase 1 結果**：Screening（Plackett-Burman、Fractional Factorial）自行實作（開發環境無 pyDOE3 且無網路）；OLS 以 NumPy 實作，statsmodels 僅作選用的交叉驗證。CCD 的實作方式留待 Phase 2 決定。
 - **Open questions**：RSM 建模最終採用方式（Phase 1/2）。
 
 ## ADR-009：預測 R² 的定義與停止條件
