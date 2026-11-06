@@ -108,6 +108,6 @@ m 個 contrast `cⱼ`：`s0 = 1.5·median|c|`，`PSE = 1.5·median{|c| : |c| < 2
 ## 5. 驗證範圍
 
 * 測試：Core 資料結構、PB / FF 的結構與正交性、統計量與獨立公式 / SciPy 對照、圖表資料、多 seed 回歸。
-* **教科書對照**：Montgomery《Design and Analysis of Experiments》2⁴ 過濾速率範例。資料與已知效應（A=21.625、B=3.125、C=9.875、D=14.625、AC=−18.125、AD=16.625 …）是我憑記憶輸入，程式**完全重現**這些效應；請以你手邊的教科書再核對一次資料表。**尚未與 R（FrF2 / rsm）做對照**（本環境無 R、無網路）。
+* **教科書對照**：Montgomery《Design and Analysis of Experiments》2⁴ 過濾速率範例。資料與已知效應（A=21.625、B=3.125、C=9.875、D=14.625、AC=−18.125、AD=16.625 …）憑記憶輸入，程式**完全重現**這些效應；請以你手邊的教科書再核對一次資料表。**尚未與 R（FrF2 / rsm）做對照**（本環境無 R、無網路）。
 * 未做任何商業軟體相容聲明；先前 PDF 的 limit 數值（df=10、m=19 → 2.22814 / 3.97276）已由 SciPy 重現，非 Design-Expert 原始輸出對照。
 * 依賴決策（ADR-008）：本階段**自行實作** PB / FF（沙箱無 pyDOE3 且無網路）；OLS 以 NumPy 實作，statsmodels 僅作選用交叉驗證。
